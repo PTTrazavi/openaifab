@@ -1,0 +1,69 @@
+{% extends "base_generic.html" %}
+{% block title %}<a class="navbar-brand" href="#pablo">Customers</a>{% endblock %}
+
+{% block sidebar %}
+              <li class="nav-item active">
+                  <a class="nav-link" href="#">
+                      <i class="nc-icon nc-icon nc-notes"></i>
+                      <p>Customers</p>
+                  </a>
+              </li>
+              <li>
+                  <a class="nav-link" href="{% url 'project_list' %}">
+                      <i class="nc-icon nc-single-copy-04"></i>
+                      <p>Projects</p>
+                  </a>
+              </li>
+
+              <li class="nav-item active-pro">
+                  <a class="nav-link" href="{% url 'pw_change' %}">
+                      <i class="nc-icon nc-key-25"></i>
+                      <p>Change Password</p>
+                  </a>
+              </li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+      <a href="{% url 'company_add' %}"><p>Add new company</p></a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card strpied-tabled-with-hover">
+            <div class="card-header ">
+                <h4 class="card-title">Company List</h4>
+            </div>
+            <div class="card-body table-full-width table-responsive">
+              {% if company_list %}
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>公司</th>
+                      <th>類別</th>
+                      <th>地址</th>
+                      <th>備註</th>
+                      <th>動作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for company in company_list %}
+                    <tr>
+                      <td><a href="{% url 'company_detail' company.pk %}">{{company.name}}</a></td>
+                      <td>{{company.get_type_display}}</td>
+                      <td>{{company.address}}</td>
+                      <td>{{company.description}}</td>
+                      <td><a href="{% url 'company_update' company.pk %}">Update</a></td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              {% else %}
+                <p>No customer yet</p>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

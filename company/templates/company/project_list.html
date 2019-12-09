@@ -1,0 +1,74 @@
+{% extends "base_generic.html" %}
+{% block title %}<a class="navbar-brand" href="#pablo">Projects</a>{% endblock %}
+
+
+{% block sidebar %}
+              <li>
+                  <a class="nav-link" href="{% url 'company_list' %}">
+                      <i class="nc-icon nc-icon nc-notes"></i>
+                      <p>Customers</p>
+                  </a>
+              </li>
+              <li class="nav-item active">
+                  <a class="nav-link" href="#">
+                      <i class="nc-icon nc-single-copy-04"></i>
+                      <p>Projects</p>
+                  </a>
+              </li>
+
+              <li class="nav-item active-pro">
+                  <a class="nav-link" href="{% url 'pw_change' %}">
+                      <i class="nc-icon nc-key-25"></i>
+                      <p>Change Password</p>
+                  </a>
+              </li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+      <a href="{% url 'project_add' %}"><p>Add new project</p></a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card strpied-tabled-with-hover">
+            <div class="card-header ">
+                <h4 class="card-title">Project List</h4>
+            </div>
+            <div class="card-body table-full-width table-responsive">
+              {% if project_list %}
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>編號</th>
+                      <th>公司</th>
+                      <th>專案名稱</th>
+                      <th>團隊成員</th>
+                      <th>狀態</th>
+                      <th>更新日期</th>
+                      <th>動作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for project in project_list %}
+                    <tr>
+                      <td><a href="{% url 'project_detail' project.pk %}">{{project.pk}}</a></td>
+                      <td>{{project.company}}</td>
+                      <td>{{project.name}}</td>
+                      <td>{{project.member}}</td>
+                      <td>{{project.get_status_display}}</td>
+                      <td>{{project.date_start}}</td>
+                      <td><a href="{% url 'project_update' project.pk %}">Update</a></td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              {% else %}
+                <p>No project yet</p>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

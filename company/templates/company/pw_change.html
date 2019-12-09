@@ -1,0 +1,34 @@
+{% extends "base_generic.html" %}
+{% block title %}<a class="navbar-brand" href="#pablo">HOME</a>{% endblock %}
+{% block sidebar %}
+              <li>
+                  <a class="nav-link" href="{% url 'company_list' %}">
+                      <i class="nc-icon nc-icon nc-notes"></i>
+                      <p>Customers</p>
+                  </a>
+              </li>
+              <li>
+                  <a class="nav-link" href="{% url 'project_list' %}">
+                      <i class="nc-icon nc-single-copy-04"></i>
+                      <p>Projects</p>
+                  </a>
+              </li>
+
+              <li class="nav-item active-pro active">
+                  <a class="nav-link" href="#">
+                      <i class="nc-icon nc-key-25"></i>
+                      <p>Change Password</p>
+                  </a>
+              </li>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Save changes</button>
+      </form>
+    </div>
+</div>
+{% endblock %}

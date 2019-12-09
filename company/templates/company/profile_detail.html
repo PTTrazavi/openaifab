@@ -1,0 +1,73 @@
+{% extends "base_generic.html" %}
+{% block title %}<a class="navbar-brand" href="{% url 'company_list' %}">Company Detail</a>{% endblock %}
+
+{% block sidebar %}
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'company_list' %}">
+                      <i class="nc-icon nc-icon nc-notes"></i>
+                      <p>Customers</p>
+                  </a>
+              </li>
+              <li>
+                  <a class="nav-link" href="{% url 'project_list' %}">
+                      <i class="nc-icon nc-single-copy-04"></i>
+                      <p>Projects</p>
+                  </a>
+              </li>
+
+              <li class="nav-item active-pro">
+                  <a class="nav-link" href="{% url 'pw_change' %}">
+                      <i class="nc-icon nc-key-25"></i>
+                      <p>Change Password</p>
+                  </a>
+              </li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+      <div class="card strpied-tabled-with-hover">
+          <div class="card-header ">
+              <h4 class="card-title">{{profile.company}} / {{profile.name}}</h4>
+          </div>
+          <div class="card-body table-full-width table-responsive">
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th>部門</th>
+                    <th>職稱</th>
+                    <th>Email</th>
+                    <th>電話</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{profile.department}}</td>
+                    <td>{{profile.title}}</td>
+                    <td>{{profile.email}}</td>
+                    <td>{{profile.phone}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th>備註</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{profile.description}}</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+      <a href="javascript:history.back();"><p>上一頁</p></a>
+    </div>
+</div>
+{% endblock %}

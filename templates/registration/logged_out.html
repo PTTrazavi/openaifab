@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block sidebar %}{% endblock %}
+{% block title %}<a class="navbar-brand" href="#pablo">Login</a>{% endblock %}
+{% block user %}{% endblock %}
+{% block navbar %}{% endblock %}
+
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>You've logged out</h3>
+      <a href="{% url 'login'%}">login again</a>
+  </div>
+</div>
+{% endblock %}

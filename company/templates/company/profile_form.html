@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+{% block title %}<a class="navbar-brand" href="#pablo">Company Detail</a>{% endblock %}
+
+{% block sidebar %}
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'company_list' %}">
+                      <i class="nc-icon nc-icon nc-notes"></i>
+                      <p>Customers</p>
+                  </a>
+              </li>
+              <li>
+                  <a class="nav-link" href="{% url 'project_list' %}">
+                      <i class="nc-icon nc-single-copy-04"></i>
+                      <p>Projects</p>
+                  </a>
+              </li>
+
+              <li class="nav-item active-pro">
+                  <a class="nav-link" href="{% url 'pw_change' %}">
+                      <i class="nc-icon nc-key-25"></i>
+                      <p>Change Password</p>
+                  </a>
+              </li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <form action="" method="post">
+          {% csrf_token %}
+          <table>
+            {{form.as_table}}
+          </table>
+          <input type="submit" value="Submit">
+          <p></p>
+          <a href="javascript:history.back();"><p>Cancel</p></a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "base_generic.html" %}
+{% block title %}<a class="navbar-brand" href="#">Company Detail</a>{% endblock %}
+
+{% block sidebar %}
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'company_list' %}">
+                      <i class="nc-icon nc-icon nc-notes"></i>
+                      <p>Customers</p>
+                  </a>
+              </li>
+              <li>
+                  <a class="nav-link" href="{% url 'project_list' %}">
+                      <i class="nc-icon nc-single-copy-04"></i>
+                      <p>Projects</p>
+                  </a>
+              </li>
+
+              <li class="nav-item active-pro">
+                  <a class="nav-link" href="{% url 'pw_change' %}">
+                      <i class="nc-icon nc-key-25"></i>
+                      <p>Change Password</p>
+                  </a>
+              </li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+      <a href="{% url 'profile_add' company.pk %}"><p>Add new profile</p></a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+      <div class="card strpied-tabled-with-hover">
+          <div class="card-header ">
+              <h4 class="card-title">{{company.name}} 公司人員</h4>
+          </div>
+          <div class="card-body table-full-width table-responsive">
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th>姓名</th>
+                    <th>部門</th>
+                    <th>職稱</th>
+                    <th>電話</th>
+                    <th>動作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for profile in company.profile_set.all %}
+                  <tr>
+                    <td><a href="{% url 'profile_detail' profile.pk %}">{{profile.name}}</a></td>
+                    <td>{{profile.department}}</td>
+                    <td>{{profile.title}}</td>
+                    <td>{{profile.phone}}</td>
+                    <td><a href="{% url 'profile_update' company.pk profile.pk %}">Update</a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+      <div class="card strpied-tabled-with-hover">
+          <div class="card-header ">
+              <h4 class="card-title">{{company.name}} 公司專案</h4>
+          </div>
+          <div class="card-body table-full-width table-responsive">
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th>專案名稱</th>
+                    <th>產品</th>
+                    <th>團隊成員</th>
+                    <th>狀態</th>
+                    <th>開始日期</th>
+                    <th>更新日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for project in company.project_set.all %}
+                  <tr>
+                    <td><a href="{% url 'project_detail' project.pk %}">{{project.name}}</a></td>
+                    <td>{{project.product}}</td>
+                    <td>{{project.member}}</td>
+                    <td>{{project.get_status_display}}</td>
+                    <td>{{project.date_start}}</td>
+                    <td>{{project.date_update}}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+      <a href="{% url 'company_list' %}"><p>回公司清單</p></a>
+    </div>
+</div>
+{% endblock %}
