@@ -70,3 +70,50 @@ class project(models.Model):
     #    for i in ["\r\n", "\n\r", "\n", "\r"]:
     #        detail_br = detail_br.replace(i, '<br>')
     #    return detail_br
+
+#staff list
+class staff(models.Model):
+    name = models.CharField(max_length=32)
+    DEPARTMENT_TYPE = (
+        ('a', '技術部'),
+        ('b', '業務部'),
+        ('c', '管理部'),
+    )
+    department = models.CharField(max_length=1, choices=DEPARTMENT_TYPE, blank=True)
+    boss0 = models.IntegerField(default=0, blank=True)
+    boss1 = models.IntegerField(default=0, blank=True)
+    boss2 = models.IntegerField(default=0, blank=True)
+
+    class Meta:
+        permissions = (("can_check_others", "has staffs work for self"),)
+
+    def __str__(self):
+        return self.name
+
+#report list
+class report(models.Model):
+    staff_id = models.ForeignKey('staff', on_delete=models.SET_NULL, null=True)
+    date_app = models.DateField(null=True, blank=True)
+    work = models.TextField()
+    date_start = models.DateField(null=True, blank=True)
+    date_end = models.DateField(null=True, blank=True)
+    b0 = models.IntegerField(default=0, blank=True)
+    date_b0 = models.DateField(null=True, blank=True)
+    b1 = models.IntegerField(default=0, blank=True)
+    date_b1 = models.DateField(null=True, blank=True)
+    b2 = models.IntegerField(default=0, blank=True)
+    date_b2 = models.DateField(null=True, blank=True)
+    STATUS_TYPE = (
+        ('a', '暫存中'),
+        ('b', '申請中'),
+        ('c', '已核准'),
+        ('d', '已駁回'),
+    )
+    status = models.CharField(max_length=1, choices=STATUS_TYPE, blank=True)
+    comment = models.CharField(max_length=256, blank=True)
+
+    def __str__(self):
+        return str(self.staff_id)
+
+    def get_absolute_url(self):
+        return reverse('report_detail', args=[str(self.id)])

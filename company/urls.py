@@ -15,4 +15,11 @@ urlpatterns = [
     path('project_add/', views.project_add.as_view(), name='project_add'),
     path('project_update/<int:pk>', views.project_update.as_view(), name='project_update'),
     path('project_detail/<int:pk>', views.project_detail.as_view(), name='project_detail'),
+    path('report_list/', views.report_list.as_view(), name='report_list'),
+    path('report_add/', views.report_add.as_view(), name='report_add'),
+    path('report_update/<int:pk>', views.report_update.as_view(), name='report_update'),
+    path('report_detail/<int:pk>', views.report_detail.as_view(), name='report_detail'),
+    path('report_check_list/', views.report_check_list.as_view(), name='report_check_list'),
+    path('report_check/<int:pk>', views.report_check, name='report_check'),
+    path('report_check_detail/<int:pk>', views.report_check_detail.as_view(), name='report_check_detail'),
 ]

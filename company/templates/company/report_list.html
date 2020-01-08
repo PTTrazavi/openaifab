@@ -1,0 +1,80 @@
+{% extends "base_generic.html" %}
+{% block title %}<a class="navbar-brand" href="#pablo">Projects</a>{% endblock %}
+{% load static %}
+{% block sidebarcolor %}
+  <div class="sidebar" data-color="green" data-image="{% static 'assets/img/sidebar-3.jpg' %}">
+{% endblock %}
+
+{% block sidebar %}
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'report_list' %}">
+                      <i class="nc-icon nc-icon nc-notes"></i>
+                      <p>My Reports</p>
+                  </a>
+              </li>
+              {% if perms.company.can_check_others %}
+              <li>
+                  <a class="nav-link" href="{% url 'report_check_list' %}">
+                      <i class="nc-icon nc-single-copy-04"></i>
+                      <p>Check Reports</p>
+                  </a>
+              </li>
+              {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+      <a href="{% url 'report_add' %}"><p>Add new report</p></a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card strpied-tabled-with-hover">
+            <div class="card-header ">
+                <h4 class="card-title">Report List</h4>
+            </div>
+            <div class="card-body table-full-width table-responsive">
+              {% if report_list %}
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>編號</th>
+                      <th>員工</th>
+                      <th>狀態</th>
+                      <th>提出申請日期</th>
+                      <th>開始日期</th>
+                      <th>結束日期</th>
+                      <th>動作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for report in report_list %}
+                    <tr>
+                      <td><a href="{% url 'report_detail' report.pk %}">{{report.pk}}</a></td>
+                      <td>{{report.staff_id}}</td>
+                      {% if report.status == "d" %}
+                        <td><span style="color:red;">{{report.get_status_display}}</span></td>
+                      {% else %}
+                        <td>{{report.get_status_display}}</td>
+                      {% endif %}
+                      <td>{{report.date_app}}</td>
+                      <td>{{report.date_start}}</td>
+                      <td>{{report.date_end}}</td>
+                      {% if report.status == "a" or report.status == "d" %}
+                        <td><a href="{% url 'report_update' report.pk %}">Update</a></td>
+                      {% else %}
+                        <td></td>
+                      {% endif %}
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              {% else %}
+                <p>No report yet</p>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

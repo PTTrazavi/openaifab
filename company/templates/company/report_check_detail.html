@@ -1,0 +1,120 @@
+{% extends "base_generic.html" %}
+{% block title %}<a class="navbar-brand" href="#">Reports</a>{% endblock %}
+{% load static %}
+{% block sidebarcolor %}
+  <div class="sidebar" data-color="green" data-image="{% static 'assets/img/sidebar-3.jpg' %}">
+{% endblock %}
+
+{% block sidebar %}
+              <li>
+                  <a class="nav-link" href="{% url 'report_list' %}">
+                      <i class="nc-icon nc-icon nc-notes"></i>
+                      <p>My Reports</p>
+                  </a>
+              </li>
+              {% if perms.company.can_check_others %}
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'report_check_list' %}">
+                      <i class="nc-icon nc-single-copy-04"></i>
+                      <p>Check Reports</p>
+                  </a>
+              </li>
+              {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+      <div class="card strpied-tabled-with-hover">
+          <div class="card-header ">
+              <h4 class="card-title">報告編號 {{ report.pk }}</h4>
+          </div>
+          <div class="card-body table-full-width table-responsive">
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th>人員</th>
+                    <th>提出申請日期</th>
+                    <th>狀態</th>
+                    <th>開始日期</th>
+                    <th>結束日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{report.staff_id}}</td>
+                    <td>{{report.date_app}}</td>
+                    <td>{{report.get_status_display}}</td>
+                    <td>{{report.date_start}}</td>
+                    <td>{{report.date_end}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th>詳細內容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{work_br|safe}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th>核准人</th>
+                    <th>日期</th>
+                    <th>核准人</th>
+                    <th>日期</th>
+                    <th>核准人</th>
+                    <th>日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{boss0}}</td>
+                    {% if report.date_b0%}
+                      <td>{{report.date_b0}}</td>
+                    {% else %}
+                      <td>--</td>
+                    {% endif %}
+                    <td>{{boss1}}</td>
+                    {% if report.date_b1%}
+                      <td>{{report.date_b1}}</td>
+                    {% else %}
+                      <td>--</td>
+                    {% endif %}
+                    <td>{{boss2}}</td>
+                    {% if report.date_b2%}
+                      <td>{{report.date_b2}}</td>
+                    {% else %}
+                      <td>--</td>
+                    {% endif %}
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th>建議</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{report.comment}}</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+      <a href="javascript:history.back();"><p>上一頁</p></a>
+    </div>
+</div>
+{% endblock %}
